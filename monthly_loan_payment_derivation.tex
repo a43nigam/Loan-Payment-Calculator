@@ -1,0 +1,110 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+\begin{flushleft}
+$P_0=$ Initial Loan Size (\$)
+
+$R=$ Annual interest rate (APR) described as an annual number (\% 0-1)
+
+$r=R/12$ Interest rate per month (\% 0-1)
+
+$M=$ Monthly Payment (\$)
+
+$n=$ Number of payments (months) \\
+\vspace{5mm}
+Each month there is an interest payment on the principal. Anything extra beyond the interest payment will deduct from the principal. For month 1:
+\begin{equation}
+\textrm{Interest owed} = P_0 * r
+\end{equation}
+Since the principal is reduced by payment beyond the interest, the principal is reduced by 
+\begin{equation}
+M-P_0 r
+\end{equation}
+So the principal after the first payment will be 
+\begin{equation}
+\begin{aligned}
+P_1 &= P_0 - (M - P_0 r) \\
+& = P_0 (1+r) - M
+\end{aligned}
+\end{equation}
+And the principal after the second payment will be
+\begin{equation}
+\begin{aligned}
+P_2 &= P_1 - (M - P_1 r) \\
+&= P_1 (1+r) - M
+\end{aligned}
+\end{equation}
+And the third payment will be
+\begin{equation}
+\begin{aligned}
+P_3 &= P_2 - (M - P_2 r) \\
+&= P_2 (1+r) - M
+\end{aligned}
+\end{equation}
+Clearly, there is a pattern, the following recursive formula is true:
+\begin{equation}
+P_{n + 1} = P_n (1 + r) - M
+\end{equation}
+Right now, this is not useful. If we substitute $(4)$ into $(5)$ we get
+\begin{equation}
+\begin{aligned}
+P_3 & = (P_1 (1 + r) - M)(1 + r) - M \\
+& = P_1 (1 + r)^2 - M(1 + r) - M
+\end{aligned}
+\end{equation}
+And substituting $(3)$ into $(7)$ gives
+\begin{equation}
+\begin{aligned}
+P_3 & = (P_0 (1 + r) - M)(1 + r)^2 - M(1 + r) - M \\
+& = P_0 (1 + r)^3 - M(1 + r)^2 - M(1 + r) - M
+\end{aligned}
+\end{equation}
+The pattern here is 
+\begin{equation}
+P_n = P_0 (1 + r)^n - [M + M(1 + r) + M( 1 + r)^2 + ... + M(1 + r)^{n - 1}]
+\end{equation}
+The M terms are going through a geometric series. The factor by which M is multiplied is $(1 + r)$. For a standard geometric series:
+\begin{equation}
+\sum_{n = 0}^{\infty} ar^n = a \left( \frac{1 - r^n}{1 - r} \right)
+\end{equation} 
+and substituting values from $(9)$ gives
+\begin{equation}
+\begin{aligned}
+P_n & = P_0 (1 + r)^n - \sum_{n=0}^{\infty} M(1 + r)^n \\
+& = P_0 (1 + r)^n - \left[ M \left( \frac{1 - (1 + r)^n}{1 - (1 + r)} \right) \right]
+\end{aligned}
+\end{equation}
+We are interested in when $P_n = 0$ because this is when the amount owed is 0. Now we just need to solve for $M$ when $P_n = 0$. Rearranging $(11)$,
+\begin{equation}
+M \left( \frac{(1 + r)^n - 1}{r}\right) = P_0 (1 + r)^n
+\end{equation}
+so
+\begin{equation}
+\boxed {
+M = \frac{r P_0 (1 + r)^n}{(1 + r)^n - 1}
+}
+\end{equation}
+\end{flushleft}
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
